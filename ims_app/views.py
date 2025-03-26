@@ -2,14 +2,32 @@ from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from .models import Product_type,Product,Department, Sell
-from .serializer import Product_typeSerializer,DepartmentSerializer,ProductSerializer,SellSerializer
+from .serializer import Product_typeSerializer,DepartmentSerializer,ProductSerializer,SellSerializer,UserSerializer
 
 from rest_framework.decorators import api_view
 from django.contrib.auth import authenticate # email ra pass check garne logic cha
 from rest_framework.authtoken.models import Token #toke banauna token model bata query garna paro
+from django.contrib.auth.hashers import make_password # password hash garne logic cha
 
 
 # Create your views here.
+
+# User table ma data create garneee
+@api_view(['POST'])
+def register(request):
+    password = request.data.get('password')
+    hashed_password = make_password(password)
+    request.data['password']=hashed_password
+    serializer= UserSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response("User created successfully!")
+    else:
+        return Response(serializer.errors)
+    
+    
+    pass
+
 
 @api_view(['POST'])
 def login(request):

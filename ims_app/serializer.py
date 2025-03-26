@@ -1,7 +1,7 @@
 from rest_framework.serializers import ModelSerializer
 
 
-from .models import Product_type, Department,Product, Sell
+from .models import Product_type, Department,Product, Sell, User
 
 class Product_typeSerializer(ModelSerializer):
     class Meta:
@@ -22,3 +22,8 @@ class SellSerializer(ModelSerializer):
     class Meta:
         model = Sell
         fields = '__all__'
+        
+class UserSerializer(ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['email','password']
