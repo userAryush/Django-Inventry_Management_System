@@ -1,7 +1,17 @@
 from rest_framework.serializers import ModelSerializer
 
 
-from .models import Product_type, Department,Product, Sell, User
+from .models import Product_type, Department,Product, Sell, User,purchase
+from django.contrib.auth.models import Group
+class UserSerializer(ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['email','password','groups']# ya grp halesi aba user data create huda group field ni aaune vo
+        
+class GroupSerializer(ModelSerializer):
+    class Meta:
+        model = Group
+        fields = ['id','name']
 
 class Product_typeSerializer(ModelSerializer):
     class Meta:
@@ -23,7 +33,8 @@ class SellSerializer(ModelSerializer):
         model = Sell
         fields = '__all__'
         
-class UserSerializer(ModelSerializer):
+        
+class PurchaseSerializer(ModelSerializer):
     class Meta:
-        model = User
-        fields = ['email','password']
+        model = purchase
+        fields = '__all__'
