@@ -78,6 +78,8 @@ class ProductViewSet(ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     permission_classes = [CustomModelPermissions]
+    filterset_fields = ['Product_type_id','department']
+    search_fields = ['product_name']
     
 class SellViewSet(ModelViewSet):
     queryset = Sell.objects.all()
